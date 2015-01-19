@@ -1,13 +1,14 @@
 //----------------------------------------------------
 //
 // METHOD:  polyfit
-// 
+//
 // INPUTS:  dependentValues[0..(countOfElements-1)]
 //          independentValues[0...(countOfElements-1)]
 //          countOfElements
 //          order - Order of the polynomial fitting
 //
-// OUTPUTS: coefficients[0..order]
+// OUTPUTS: coefficients[0..order] - indexed by term
+//               (the (coef*x^3) is coefficients[3])
 //
 //----------------------------------------------------
 int polyfit(const double* const dependentValues,

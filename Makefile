@@ -1,16 +1,33 @@
 PROJECT := polyfit
-OBJS := main.o polyfit.o
-CC := gcc
-CFLAGS := -Wall -Wextra -O2 -std=c99
-LDLIBS := -lm
 
-.PHONY: all
+CC := gcc
+CPP := g++
+
+IDIR   := $(CPPUTEST_HOME)/include
+CFLAGS := -I$(IDIR) -Wall
+
+LDIR := -L$(CPPUTEST_HOME)/lib
+UNITTESTEXE := runUnitTests
+
+LIBS := -lCppUTest -lCppUTestExt
+
+C_SRC = polyfit.c
+
+CPP_SRC = test_polyfit.cpp
+
+OBJS := polyfit.o \
+        test_polyfit.o
+
 all: $(PROJECT)
+	./$(UNITTESTEXE)
+
+$(PROJECT):
+	$(CC) -c $(C_SRC) $(CFLAGS)
+	$(CPP) -c $(CPP_SRC) $(CFLAGS)
+	$(CPP) -o $(UNITTESTEXE) $(OBJS) $(LIBS) $(LDIR)
 
 .PHONY: clean
 clean:
-	$(RM) $(OBJS) $(PROJECT)
+	$(RM) $(OBJS) $(PROJECT) $(UNITTESTEXE)
 
-$(PROJECT): $(OBJS)
-	$(LINK.o) $^ $(LDLIBS) -o $@
 
