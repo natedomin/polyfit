@@ -50,6 +50,40 @@ TEST(TestPolyfit, ThirdOrderPoly)
                                          47792.19,
                                           7991.13,
                                         662740.98};
+    double coefficients[order + 1]; // resulting array of coefs
+
+    // Perform the polyfit
+    result = polyfit(xData,
+                     yData,
+                     countOfElements,
+                     order,
+                     coefficients);
+
+    CHECK_EQUAL(result, 0);
+    DOUBLES_EQUAL(0.5, coefficients[3], acceptableError);
+    DOUBLES_EQUAL(2.5, coefficients[2], acceptableError);
+    DOUBLES_EQUAL(1.0, coefficients[1], acceptableError);
+    DOUBLES_EQUAL(3.0, coefficients[0], acceptableError);
+}
+
+
+//----------------------------------------------------
+// Verify incorrect result - insufficient count of xData
+// and yData for the specified polyfit order.
+//----------------------------------------------------
+TEST(TestPolyfit, InsufficientInputData)
+{
+    const unsigned int order = 3;
+    const unsigned int countOfElements = 2;
+    int result;
+
+    // These inputs should result in the following approximate coefficients:
+    //         0.1           -3.2           -0.1        40.0
+    //    y = (0.1 * x^3) + (-3.2 * x^2) + (-0.1 * x) + 40.0
+    double    xData[countOfElements] = {    15.0,
+                                            77.0};
+    double    yData[countOfElements] = {  -344.0,
+                                         26712.8};
    double coefficients[order + 1]; // resulting array of coefs
 
    // Perform the polyfit
@@ -59,11 +93,6 @@ TEST(TestPolyfit, ThirdOrderPoly)
                     order,
                     coefficients);
 
-   CHECK_EQUAL(result, 0);
-   DOUBLES_EQUAL(0.5, coefficients[3], acceptableError);
-   DOUBLES_EQUAL(2.5, coefficients[2], acceptableError);
-   DOUBLES_EQUAL(1.0, coefficients[1], acceptableError);
-   DOUBLES_EQUAL(3.0, coefficients[0], acceptableError);
+   CHECK_EQUAL(result, -1);
 }
-
 
