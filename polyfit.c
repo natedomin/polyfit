@@ -19,7 +19,6 @@ int polyfit(const double* const dependentValues,
 {
     // Declarations...
     // ----------------------------------
-    const unsigned int maxNoOfElements = 50; // Arbitrary
     enum {maxOrder = 5};
     
     double B[maxOrder+1] = {0.0f};
@@ -41,11 +40,6 @@ int polyfit(const double* const dependentValues,
     // This method has imposed an arbitrary bound of
     // order <= maxOrder.  Increase maxOrder if necessary.
     if (order > maxOrder)
-        return -1;
-
-    // This method has imposed an arbitrary bound of
-    // countOfElements <= maxNoOfElements
-    if (countOfElements > maxNoOfElements)
         return -1;
 
     // Begin Code...

@@ -13,9 +13,11 @@ LIBS := -lCppUTest -lCppUTestExt
 
 C_SRC = polyfit.c
 
-CPP_SRC = test_polyfit.cpp
+CPP_SRC = test_runner.cpp \
+          test_polyfit.cpp
 
 OBJS := polyfit.o \
+        test_runner.o \
         test_polyfit.o
 
 all: $(PROJECT)

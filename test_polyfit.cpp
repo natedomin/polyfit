@@ -1,15 +1,9 @@
 #include <CppUTest/CommandLineTestRunner.h>
 #include <CppUTest/TestHarness.h>
 #include <CppUTestExt/MockSupport.h>
+#include <stdio.h>
 #include "polyfit.h"
 
-//----------------------------------------------------
-// Execute unit tests
-//----------------------------------------------------
-int main(int ac, char** av)
-{
-    return CommandLineTestRunner::RunAllTests(ac, av);
-}
 
 //----------------------------------------------------
 // TestPolyfit Test Group declaration
@@ -59,13 +53,12 @@ TEST(TestPolyfit, ThirdOrderPoly)
                      order,
                      coefficients);
 
-    CHECK_EQUAL(result, 0);
+    CHECK_EQUAL(0, result);
     DOUBLES_EQUAL(0.5, coefficients[3], acceptableError);
     DOUBLES_EQUAL(2.5, coefficients[2], acceptableError);
     DOUBLES_EQUAL(1.0, coefficients[1], acceptableError);
     DOUBLES_EQUAL(3.0, coefficients[0], acceptableError);
 }
-
 
 //----------------------------------------------------
 // Verify incorrect result - insufficient count of xData
@@ -84,7 +77,7 @@ TEST(TestPolyfit, InsufficientInputData)
                                             77.0};
     double    yData[countOfElements] = {  -344.0,
                                          26712.8};
-   double coefficients[order + 1]; // resulting array of coefs
+    double coefficients[order + 1]; // resulting array of coefs
 
    // Perform the polyfit
    result = polyfit(xData,
@@ -93,6 +86,6 @@ TEST(TestPolyfit, InsufficientInputData)
                     order,
                     coefficients);
 
-   CHECK_EQUAL(result, -1);
+   CHECK_EQUAL(-1, result);
 }
 
